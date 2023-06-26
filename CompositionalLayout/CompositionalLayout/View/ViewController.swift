@@ -37,7 +37,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        configureUI()
+        configureDataSource()
     }
     
     private func configureUI() {
@@ -124,7 +125,7 @@ class ViewController: UIViewController {
                             widthDimension: .fractionalWidth(1),
                             heightDimension: .absolute(50)
                         ),
-                        elementKind: "secondHeaderID",
+                        elementKind: Constant.categoryHeaderId,
                         alignment: .topLeading
                     )
                 ]
@@ -157,10 +158,10 @@ class ViewController: UIViewController {
                             )
                 )
                 item.contentInsets.trailing = 16
-                item.contentInsets.top = 16
+                item.contentInsets.bottom = 16
                 let group = NSCollectionLayoutGroup.vertical(
-                    layoutSize: .init(widthDimension: .fractionalWidth(0.9),
-                                      heightDimension: .estimated(300)),
+                    layoutSize: .init(widthDimension: .fractionalWidth(0.95),
+                                      heightDimension: .estimated(100)),
                     repeatingSubitem: item,
                     count: 5
                 )
@@ -168,7 +169,7 @@ class ViewController: UIViewController {
                 section.boundarySupplementaryItems = [
                     .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                             heightDimension: .absolute(50)),
-                          elementKind: "thirdHeaderID",
+                          elementKind: Constant.playlistHeaderId,
                           alignment: .topLeading
                          )
                 ]

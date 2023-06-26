@@ -17,6 +17,7 @@ final class Header: UICollectionReusableView, Identifier {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        label.font = UIFont.preferredFont(forTextStyle: .largeTitle)
         addSubview(label)
     }
     
