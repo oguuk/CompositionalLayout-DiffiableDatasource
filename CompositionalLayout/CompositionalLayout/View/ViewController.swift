@@ -51,6 +51,14 @@ class ViewController: UIViewController {
         ])
     }
     
+    private func configureDataSource() {
+        dataSource = CollectionViewDiffableDataSource(collectionView: collectionView,
+                                                      cellID: Constant.cellID,
+                                                      supplementaryHeaders: supplementaryHeaders)
+        dataSource?.apply(applySnapshot())
+        collectionView.dataSource = dataSource
+    }
+    
     private func configureLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { sectionNum, env in
             
