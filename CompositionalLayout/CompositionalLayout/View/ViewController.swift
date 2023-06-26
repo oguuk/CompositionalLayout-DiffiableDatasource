@@ -9,21 +9,32 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    enum Constant {
+        static let cellID = "cellID"
+        static let categoryHeaderId = "categoryHeaderId"
+        static let playlistHeaderId = "playlistHeaderId"
+    }
+        
+    private let supplementaryHeaders = [Constant.categoryHeaderId: "categories",
+                                        Constant.playlistHeaderId: "playlist"
+    ]
+    
     private lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: configureLayout())
-        view.register(UICollectionView.self, forCellWithReuseIdentifier: "cell")
+        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constant.cellID)
         view.register(Header.self,
-                      forSupplementaryViewOfKind: "secondHeaderID",
+                      forSupplementaryViewOfKind: Constant.categoryHeaderId,
                       withReuseIdentifier: Header.identifier
         )
         view.register(Header.self,
-                      forSupplementaryViewOfKind: "thirdHeaderID",
+                      forSupplementaryViewOfKind: Constant.playlistHeaderId,
                       withReuseIdentifier: Header.identifier
         )
-        view.dataSource = self
         return view
     }()
-
+    
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Item>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
