@@ -59,6 +59,24 @@ class ViewController: UIViewController {
         collectionView.dataSource = dataSource
     }
     
+    private func applySnapshot() -> DiffableSnapshot {
+        var snapshot = DiffableSnapshot()
+        snapshot.addSection(sections: Section.allCases)
+        for section in Section.allCases {
+            switch section {
+            case .section1:
+                snapshot.addItems(section: section, items: (0..<3).map { .normal("\(section)Item \($0)") })
+            case .section2:
+                snapshot.addItems(section: section, items: (0..<8).map { .normal("\(section)Item \($0)") })
+            case .section3:
+                snapshot.addItems(section: section, items: (0..<4).map { .normal("\(section)Item \($0)") })
+            default:
+                snapshot.addItems(section: section, items: (0..<20).map { .normal("\(section)Item \($0)") })
+            }
+        }
+        return snapshot
+    }
+    
     private func configureLayout() -> UICollectionViewCompositionalLayout {
         return UICollectionViewCompositionalLayout { sectionNum, env in
             
