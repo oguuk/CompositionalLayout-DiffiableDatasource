@@ -11,25 +11,25 @@ class ViewController: UIViewController {
     
     enum Constant {
         static let cellID = "cellID"
-        static let categoryHeaderId = "categoryHeaderId"
-        static let playlistHeaderId = "playlistHeaderId"
+        static let section0HeaderId = "Section 0"
+        static let section1HeaderId = "Section 1"
+        static let section2HeaderId = "Section 2"
     }
         
-    private let supplementaryHeaders = [Constant.categoryHeaderId: "categories",
-                                        Constant.playlistHeaderId: "playlist"
+    private let supplementaryHeaders = [Constant.section0HeaderId: "Section 0",
+                                        Constant.section1HeaderId: "Section 1",
+                                        Constant.section2HeaderId: "Section 2"
     ]
     
     private lazy var collectionView: UICollectionView = {
         let view = UICollectionView(frame: .zero, collectionViewLayout: configureLayout())
         view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: Constant.cellID)
-        view.register(Header.self,
-                      forSupplementaryViewOfKind: Constant.categoryHeaderId,
-                      withReuseIdentifier: Header.identifier
-        )
-        view.register(Header.self,
-                      forSupplementaryViewOfKind: Constant.playlistHeaderId,
-                      withReuseIdentifier: Header.identifier
-        )
+        [Constant.section0HeaderId, Constant.section1HeaderId, Constant.section2HeaderId].forEach {
+            view.register(Header.self,
+                          forSupplementaryViewOfKind: $0,
+                          withReuseIdentifier: Header.identifier
+            )
+        }
         return view
     }()
     
@@ -98,6 +98,16 @@ class ViewController: UIViewController {
                     subitems: [item]
                 )
                 let section = NSCollectionLayoutSection(group: group)
+                section.boundarySupplementaryItems = [
+                    .init(
+                        layoutSize: .init(
+                            widthDimension: .fractionalWidth(1),
+                            heightDimension: .absolute(50)
+                        ),
+                        elementKind: Constant.section0HeaderId,
+                        alignment: .topLeading
+                    )
+                ]
                 section.orthogonalScrollingBehavior = .groupPaging
                 return section
             case 1:
@@ -125,7 +135,7 @@ class ViewController: UIViewController {
                             widthDimension: .fractionalWidth(1),
                             heightDimension: .absolute(50)
                         ),
-                        elementKind: Constant.categoryHeaderId,
+                        elementKind: Constant.section1HeaderId,
                         alignment: .topLeading
                     )
                 ]
@@ -169,7 +179,7 @@ class ViewController: UIViewController {
                 section.boundarySupplementaryItems = [
                     .init(layoutSize: .init(widthDimension: .fractionalWidth(1),
                                             heightDimension: .absolute(50)),
-                          elementKind: Constant.playlistHeaderId,
+                          elementKind: Constant.section2HeaderId,
                           alignment: .topLeading
                          )
                 ]
